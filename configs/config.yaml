@@ -1,0 +1,83 @@
+# Configurations File 
+
+# Available ResNet Architecture:
+# resnet18, resnet34, resnet50, resnet101, and resnet152.
+# ciafar_resnet_20, ciafar_resnet_32 and ciafar_resnet_44. 
+
+model: ResNet
+arch: resnet50
+seed: 999
+gpu: 2
+logs_path: "./logs/"
+dataset:
+  path: "./data/kid2multiclass/" #KID2 Multi Class Classification
+  train_dir: "data/kid2multiclass/train/"
+  test_dir: "data/kid2multiclass/val/"
+  mean_stdpath: "./../data/kid2multiclass"
+  size: 360 
+  mean_vals : 
+    kid2multiclass: [0.4335, 0.2726, 0.1933]
+    ampullavsnormal: [0.3788, 0.2493, 0.2062] 
+    inflammatoryvsnormal: []
+    polypoidsvsnormal: []
+    vascularvsnormal: []
+
+  std_vals : 
+    kid2multiclass: [0.3299, 0.2346, 0.1628]
+    ampullavsnormal: [0.2917, 0.2156, 0.1678] 
+    inflammatoryvsnormal: []
+    polypoidsvsnormal: []
+    vascularvsnormal: []
+
+training: 
+  batch_size: 2 #84.38
+  epochs: 40
+  learning_rate: 1e-3 # found_lr from the saved image in the logs 
+  multi_gpus: True
+  n_workers: 4
+  optimizer: Adam 
+  val_split: 0.9
+
+weights: 
+  best: "./logs/2021-03-31~22:58:56/" # Need to change it accordingly # 83.87%: 2021-03-31~22:58:56
+  latest: "./logs/2021-04-01~13:27:56/"
+  name: "best-model.pt"
+  # best: "logs/2021-03-31-20:29:29/tut5-model.pt"
+
+abnormalities: 
+  kid1: 
+    - ampulla-of-vater 
+    - inflammatory 
+    - polypoids 
+    - vascular
+    - Angioectasias 
+    - Apthae
+    - Bleeding 
+    - ChylousCysts 
+    - Lymphangectasias
+    - Polypoids 
+    - Stenoses
+    - Ulcers 
+    - VillousOedemas
+  kid2: 
+    - ampulla-of-vater 
+    - inflammatory 
+    - polypoids 
+    - vascular
+  both: 
+    - Angioectasias 
+    - Apthae
+    - Bleeding 
+    - ChylousCysts 
+    - Lymphangectasias
+    - Polypoids 
+    - Stenoses
+    - Ulcers 
+    - VillousOedemas
+    - ampulla-of-vater
+    - inflammatory
+    - vascular
+
+signature: | 
+  Abhijeet Dhupia
+  email - abhijeetd@iisc.ac.in
